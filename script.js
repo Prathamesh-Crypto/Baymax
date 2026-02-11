@@ -101,7 +101,7 @@ startBtn.addEventListener("click", async ()=>{
     bootContent.classList.add("show");
     setTimeout(async ()=>{
         startOverlay.style.display="none";
-        await startCamsera();
+        await startCamera();
         startBoot();
     },800);
 });
@@ -157,3 +157,4 @@ battleBtn.addEventListener("click",()=>{
         battleBtn.textContent = "Normal Mode";
     }
 });
+
