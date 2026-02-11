@@ -1,0 +1,176 @@
+@font-face {
+  font-family: 'GravitasOne';
+  src: url('fonts/GravitasOne-Regular.ttf') format('truetype');
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:GravitasOne;
+}
+
+/* CAMERA */
+#camera {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -2;
+}
+#camera-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.25;
+    mix-blend-mode: screen;
+    filter: brightness(2) contrast(1.3) saturate(5);
+}
+
+/* HUD */
+#hud { 
+    position: fixed; inset:0; color:white; opacity:0; transition:opacity 0.6s ease; z-index:1; 
+}
+#hud * { transition: color 0.5s, background-color 0.5s, border-color 0.5s; }
+#hud.show { opacity:1; }
+
+/* CENTER GREETING */
+#hud-center { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; animation:fadeGreeting 8s ease forwards; }
+@keyframes fadeGreeting { 0%{opacity:1;} 70%{opacity:1;} 100%{opacity:0;} }
+
+/* Top Right */
+#hud-top-right { position:fixed; top:20px; right:20px; text-align:right; color:#35d7f3; }
+#live-clock { font-size:36px; font-weight:bold; }
+#live-date { font-size:18px; margin-top:5px; }
+#weather-info { font-size:20px; margin-top:5px; }
+
+/* Top Left: Voice */
+#voice-indicator{ position:fixed; top:20px; left:20px; z-index:9999; }
+#mic{ width:20px; height:30px; background:#35d7f3; border-radius:10px; animation:mic-pulse 1s infinite alternate; }
+@keyframes mic-pulse{from{transform:scale(1);opacity:0.5;}to{transform:scale(1.3);opacity:1;}}
+
+/* Bottom Left: Battery + Heart */
+#hud-bottom-left{position:fixed; bottom:30px; left:30px; display:flex; flex-direction:column; align-items:flex-start;}
+#heart-rate{ font-size:18px; margin-top:15px; }
+#battery-hud{ width:100px; height:200px; display:flex; flex-direction:column; align-items:center;}
+#battery-outline{ position:relative; width:100%; height:85%; border:5px solid #00f0ff; border-radius:15px; display:flex; flex-direction:column; justify-content:space-around; padding:5px 0; }
+.battery-notch{ position:absolute; top:-12px; left:50%; transform:translateX(-50%); width:40%; height:12px; border-radius:9px; }
+.battery-segment{ height:25%; margin:3px 5px; border-radius:6px; opacity:0.2; transition:opacity 0.3s, background 0.3s; }
+#battery-text{ margin-top:10px; font-size:15px; color:#00f0ff; text-align:center; }
+
+/* Bottom Right: Notifications + Network */
+#hud-bottom-right{ position:fixed; bottom:30px; right:30px; text-align:right; }
+#notifications{ font-size:18px; margin-bottom:10px; }
+#network-indicator{ display:flex; gap:4px; }
+.signal-dot{ width:10px; height:10px; border-radius:50%; background:#00f0ff; opacity:0.6; animation:pulse 1s infinite alternate; }
+.signal-dot:nth-child(1){ animation-delay:0s; }
+.signal-dot:nth-child(2){ animation-delay:0.2s; }
+.signal-dot:nth-child(3){ animation-delay:0.4s; }
+@keyframes pulse { from{opacity:0.2;transform:scale(1);} to{opacity:1;transform:scale(1.4);} }
+
+/* Bottom Center: Tips */
+#hud-bottom-center{ position:fixed; bottom:30px; left:50%; transform:translateX(-50%); font-size:18px; background:rgba(0,0,0,0.3); padding:10px 20px; border-radius:20px; }
+
+/* Middle Right: Battle Mode Button */
+#hud-middle-right { 
+    position: fixed; 
+    top: 50%; 
+    left: 30px;   /* move to left side */ 
+    display: none; 
+    z-index: 9999; 
+}
+#hud-middle-right button {
+    padding: 12px 18px;
+    font-size: 20px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: #35d7f3;  /* default blue */
+    color: black;          /* text black */
+    transition: background-color 0.3s, color 0.3s;
+}
+#hud-middle-right button:hover {
+    background-color: #1ea1c9;
+}
+
+/* Battle Mode: button background turns red */
+#hud.battle-mode #hud-middle-right button {
+    background-color: #ff3b3b !important; /* red background */
+    color: black !important;               /* keep text black */
+}
+
+/* START BUTTON */
+#start-overlay{ position:fixed; inset:0; background:black; display:flex; justify-content:center; align-items:center; z-index:10000; }
+#start-btn{ padding:16px 40px; font-size:25px; border-radius:30px; border:none; cursor:pointer; background:#35d7f3; color:black; animation:float 2s ease-in-out infinite; }
+#start-btn.fade-out{ opacity:0; transition:opacity 0.8s ease; }
+
+/* BOOT SCREEN */
+#boot-screen{ position:fixed; inset:0; background:black; display:flex; justify-content:center; align-items:center; z-index:5; transition:opacity 0.5s ease; }
+.boot-content.morph-target{ display:flex; flex-direction:column; align-items:center; justify-content:center; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); opacity:0; transition:opacity 0.8s ease; }
+.boot-content.morph-target.show{ opacity:1; }
+.boot-content.morph-target.fade-out{ opacity:0; }
+.boot-logo{ width:200px; animation:float 2s ease-in-out infinite; }
+@keyframes float{0%{transform:translateY(0);}50%{transform:translateY(-10px);}100%{transform:translateY(0);}}
+#loading-text{ font-size:40px; color:white; }
+#boot-circle{ position:absolute; width:10px; height:10px; border-radius:50%; background:black; opacity:0; }
+#boot-circle.expand{ animation:expandCircle 0.6s ease forwards; }
+@keyframes expandCircle{ to{ width:300vmax; height:300vmax; }}
+
+/* BATTLE MODE */
+#hud.battle-mode *{ color:#ff3b3b !important; border-color:#ff3b3b !important;}
+#hud.battle-mode .battery-segment{ background:#ff3b3b !important; }
+#hud.battle-mode .battery-notch{ background:#ff3b3b !important; }
+#hud.battle-mode .signal-dot{ background:#ff3b3b !important; }
+#hud.battle-mode #mic{ background:#ff3b3b !important; }
+#hud.battle-mode #hud-center h1, #hud.battle-mode #hud-center p{ color:#ff3b3b !important; }
+
+button {
+    color: black;  /* default text color */
+}
+
+/* Default HUD images/overlays stay normal */
+#hud img, #camera-overlay {
+    transition: filter 0.5s ease;
+}
+
+/* Battle Mode: rotate hue to red */
+#hud.battle-mode img, 
+#hud.battle-mode #camera-overlay {
+    filter: hue-rotate(350deg) saturate(2); /* shifts blues to red */
+}
+
+#tasks-menu {
+    position: fixed;
+    top: 40%;      /* middle of screen */
+    right: 30px;   /* right side */
+    background: rgba(0,0,0,0.3);
+    padding: 12px 20px;
+    border-radius: 12px;
+    color: white;
+    font-family: GravitasOne;
+    z-index: 9999;
+    transition: all 0.3s ease;
+}
+
+#tasks-menu h3 {
+    margin-bottom: 8px;
+    font-size: 18px;
+    color: #35d7f3;
+}
+
+#tasks-menu ul {
+    list-style: disc;
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+/* Battle mode colors */
+#hud.battle-mode #tasks-menu h3,
+#hud.battle-mode #tasks-menu ul li {
+    color: #ff3b3b;
+}

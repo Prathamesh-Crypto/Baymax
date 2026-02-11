@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Baymax UI</title>
+    <link rel="icon" href="baymax.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- START OVERLAY -->
+<div id="start-overlay">
+    <button id="start-btn">INITIALIZE</button>
+</div>
+
+<!-- CAMERA BACKGROUND -->
+<video id="camera" autoplay playsinline muted></video>
+<img src="images/overlay.png" id="camera-overlay" alt="">
+
+<!-- BOOT SCREEN -->
+<div id="boot-screen">
+    <div class="boot-content morph-target">
+        <img src="images/baymax.png" class="boot-logo">
+        <div id="loading-text">0%</div>
+    </div>
+    <div id="boot-circle"></div>
+</div>
+
+<!-- MAIN HUD -->
+<div id="hud">
+    <!-- Top Right -->
+    <div id="hud-top-right">
+        <div id="live-clock"></div>
+        <div id="live-date"></div>
+        <div id="weather-info">Loading weather...</div>
+    </div>
+
+    <!-- Top Left: Voice -->
+    <div id="voice-indicator">
+        <div id="mic"></div>
+    </div>
+
+    <!-- Bottom Left: Battery + Heart -->
+    <div id="hud-bottom-left">
+        <div id="battery-hud">
+            <div id="battery-outline">
+                <div class="battery-notch"></div>
+                <div class="battery-segment" id="seg1"></div>
+                <div class="battery-segment" id="seg2"></div>
+                <div class="battery-segment" id="seg3"></div>
+                <div class="battery-segment" id="seg4"></div>
+            </div>
+            <div id="battery-text">100%</div>
+        </div>
+        <div id="heart-rate">
+            ❤️ <span id="bpm">72</span> BPM
+        </div>
+    </div>
+
+        <!-- Middle Right: Tasks Menu -->
+    <div id="tasks-menu">
+        <h3>Tasks</h3>
+        <ul>
+            <li>Check heart rate</li>
+            <li>Drink water</li>
+            <li>Take a short walk</li>
+            <li>Check posture</li>
+        </ul>
+    </div>
+
+
+    <!-- Bottom Right: Notifications + Network -->
+    <div id="hud-bottom-right">
+        <div id="notifications">All systems nominal</div>
+        <div id="network-indicator">
+            <div class="signal-dot"></div>
+            <div class="signal-dot"></div>
+            <div class="signal-dot"></div>
+        </div>
+    </div>
+
+    <!-- Bottom Center: Tips -->
+    <div id="hud-bottom-center"></div>
+
+    <!-- Center Greeting -->
+    <div id="hud-center">
+        <h1>Hello. I am Baymax.</h1>
+        <p>Your personal healthcare companion.</p>
+    </div>
+
+    <!-- Middle Right: Battle Mode Button -->
+    <div id="hud-middle-right">
+        <button id="battle-btn">Battle Mode</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
